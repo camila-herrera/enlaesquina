@@ -3,14 +3,19 @@ import Welcome from "./pages/Welcome"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
-import Detail from "./pages/Detail" // 👈 NUEVO
+import Detail from "./pages/Detail"
+import ComingSoon from "./pages/ComingSoon" // 👈 NUEVO
 
 function App() {
-  const [screen, setScreen] = useState("welcome")
-  const [selectedProduct, setSelectedProduct] = useState(null) // 👈 NUEVO
+  const [screen, setScreen] = useState("coming") // 👈 CAMBIO AQUÍ
+  const [selectedProduct, setSelectedProduct] = useState(null)
 
   return (
     <>
+
+      {/* 🔒 PANTALLA INICIAL (COMING SOON) */}
+      {screen === "coming" && <ComingSoon />}
+
       {screen === "welcome" && (
         <Welcome
           onEnter={() => setScreen("home")}
@@ -21,14 +26,14 @@ function App() {
 
       {screen === "home" && (
         <Home
-          goToDetail={(product) => {   // 👈 NUEVO
+          goToDetail={(product) => {
             setSelectedProduct(product)
             setScreen("detail")
           }}
         />
       )}
 
-      {screen === "detail" && (   // 👈 NUEVO
+      {screen === "detail" && (
         <Detail
           product={selectedProduct}
           goBack={() => setScreen("home")}
@@ -47,6 +52,7 @@ function App() {
           goToLogin={() => setScreen("login")}
         />
       )}
+
     </>
   )
 }
